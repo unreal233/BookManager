@@ -1,0 +1,21 @@
+.warpper {
+  display: inline-block;
+  position: relative;
+}
+.option {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  top: 110%;
+  left: 0;
+  right: 0;
+  position: absolute;
+  box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.6);
+}
+.option > li {
+  padding: 3px, 6px;
+}
+.option > li.active {
+  background-color: #0094ff;
+  color: white;
+}
