@@ -5,7 +5,7 @@ class TagEditer extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            value: this.props.initTag,
+            value: this.props.initTag || [],
             inputVisible: false,
             inputValue: ''
         }
@@ -43,27 +43,31 @@ class TagEditer extends React.Component{
             <div>
                 {value.map((tag, index)=>{
                     return(
-                        <Tag closable onClose={this.handleDelete(index)}>
+                        <Tag closable onClose={()=>this.handleDelete(index)}>
                             {tag}
                         </Tag>
                     )
                 })}
                 {()=>{if(value.length < 3){
                     if(inputVisible){
-                        return(<Tag
-                                onClick={this.showInput}
-                                className='newTagHidden'
-                                >Tag+</Tag>)
+                        return(
+                            <Input
+                            type='text'
+                            className='newTagShow'
+                            value={inputValue}
+                            onChange={()=>this.handleChangeInput}
+                            onBlur={()=>this.handleSubmitInput(value)}
+                            onPressEnter={()=>this.handleSubmitInput(value)}
+                            />
+                        )
                     }
                     else{
-                        return(<Input
-                                type='text'
-                                className='newTagShow'
-                                value={inputValue}
-                                onChange={this.handleChangeInput}
-                                onBlur={this.handleSubmitInput(value)}
-                                onPressEnter={this.handleSubmitInput(value)}
-                                />)
+                        return(
+                            <Tag
+                            onClick={this.showInput}
+                            className='newTagHidden'
+                            >Tag+</Tag>
+                        )
                     }
                 }}}
             </div>

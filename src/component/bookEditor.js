@@ -1,23 +1,30 @@
 import React from 'react'
 import {Form, Input, Button} from 'antd'
-import TagEditer from '../../component/tagEdit'
+import TagEditer from './tagEdit'
+import { put } from '../utils/request'
 
 class BookEditor extends React.Component {
     constructor(props){
         super(props)
-        this.state={
-            book: props.book || null
+        const newBook = {
+            name: '',
+            price: 0,
+            tag: [],
+        }
+        this.state = {
+            book: props.book || newBook
         }
     }
 
     onSubmit(value){
         //提交数据
+        put()
     }
 
     render () {
         const {name, price, tag, id} = this.state.book
         return (
-            <>
+            <div>
                 <header>{this.props.edit ? `修改书籍(${id})` : '添加书籍'}</header>
                 <Form
                     className='inputForm'
@@ -42,7 +49,7 @@ class BookEditor extends React.Component {
                         label='标签'
                         name='tag'
                     >
-                        <TagEditer initTag={[tag]}/>
+                        <TagEditer initTag={tag}/>
                     </Form.Item>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button type="primary" htmlType="submit">
@@ -50,7 +57,7 @@ class BookEditor extends React.Component {
                         </Button>
                     </Form.Item>
                 </Form>
-            </>
+            </div>
         )
     }
 }

@@ -1,5 +1,5 @@
-import React from 'react'
-import {HashRouter, Route} from 'react-router-dom'
+import React, {Suspense} from 'react'
+import {HashRouter, Route, Redirect} from 'react-router-dom'
 import MainLayout from '../layout/mainLayout'
 
 const Login = React.lazy(()=>import('../pages/others/login'))
@@ -14,28 +14,28 @@ const UserAdd = React.lazy(()=>import('../pages/user/userAdd'))
 const UserList = React.lazy(()=>import('../pages/user/userList'))
 const UserEdit = React.lazy(()=>import('../pages/user/userEdit'))
 
-const Router = () => {
-    <HashRouter>
-        <Route exact path='/login' component={Login} />
-        <MainLayout>
-            <Route exact path='/welcome' component={Welcome} />
-            <Route exact path='/rendBook' component={RendBook}/>
-            <Route path='/user' render={
-                <div>
-                    <Route exact path='/add' component={BookAdd} />
-                    <Route exact path='/list' component={BookList} />
-                    <Route exact path='/:id' component={BookEdit} />
-                </div>
-            } />
-            <Route path='/book' render={
-                <div>
-                    <Route exact path='/add' component={UserAdd} />
-                    <Route exact path='/list' component={UserList} />
-                    <Route exact path='/:id' component={UserEdit} />
-                </div>
-            } />
-        </MainLayout>
-    </HashRouter>
+class Router extends React.Component{
+    render(){
+        return(
+            <HashRouter>
+                <Route exact path='/login' component={Login} />
+                <MainLayout>
+                    <Suspense fallback='<div>Loading</div>'>
+                        <Redirect exact from='/' to='/welcome' />
+                        <Route exact path='/welcome' component={Welcome} />
+                        <Route exact path='/rendBook' component={RendBook}/>
+                        <Route exact path='/book/add' component={BookAdd}/>
+                        <Route exact path='/book/list' component={BookList}/>
+                        <Route exact path='/book/:id' component={BookEdit}/>
+                        <Route exact path='/user/add' component={UserAdd}/>
+                        <Route exact path='/user/list' component={UserList}/>
+                        <Route exact path='/user/:id' component={UserEdit}/>
+                        <Redirect exact from='/*' to='/welcome' />
+                    </Suspense>
+                </MainLayout>
+            </HashRouter>
+        )
+    }
 }
 
 export default Router

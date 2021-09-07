@@ -1,6 +1,7 @@
 import React from 'react';
 import {Tag, Table, Popconfirm} from 'antd'
 import {Link} from 'react-router-dom'
+import { del } from '../../utils/request';
 
 const columns = [
     {
@@ -39,15 +40,20 @@ const columns = [
         title: '操作',
         key: 'action',
         render:()=>{
+            function handleDelete(){
+                //通知服务器焚书
+                del()
+            }
             return(
                 <>
-                    <Link to=''>编辑</Link>
+                    <Link to='/'>编辑</Link>
                     <Popconfirm
                         title='确定要删除此条目吗？'
                         onConfirm={this.state.handleDelete}
                         okText='是'
                         cancelText='否'>
-                         <a>删除</a>
+                         {/* eslint-disable-next-line no-script-url*/}
+                         <a href='javascript:void(0)' onClick={()=>this.handleDelete()}>删除</a>
                     </Popconfirm>
                 </>
             )
@@ -74,13 +80,13 @@ class BookList extends React.Component{
 
     render(){
         return(
-            <>
+            <div>
                 <header>书籍列表</header>
                 <Table columns={columns} dataSource={this.state.bookList} />
                 {
                     //引入echart做tag统计表、价格统计表、最受欢迎统计表
                 }
-            </>
+            </div>
         )
     }
 }

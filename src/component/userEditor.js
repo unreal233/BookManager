@@ -4,8 +4,13 @@ import {Form, Input, Button, Select, Option} from 'antd'
 class UserEditor extends React.Component{
     constructor(props){
         super(props)
-        this.state={
-            user: props.user || null
+        const newUser = {
+            name: '',
+            age: 0,
+            gender: ''
+        }
+        this.state = {
+            user: props.user || newUser
         }
     }
 
@@ -16,7 +21,7 @@ class UserEditor extends React.Component{
     render(){
         const {id, name, age, gender} = this.state.user
         return(
-            <>
+            <div>
                 <header>{this.props.edit ? `修改用户(${id})` : '添加用户'}</header>
                 <Form
                     className='inputForm'
@@ -58,7 +63,7 @@ class UserEditor extends React.Component{
                         </Button>
                     </Form.Item>
                 </Form>
-            </>
+            </div>
         )
     }
 }
