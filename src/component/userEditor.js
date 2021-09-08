@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Input, Button, Select, Option} from 'antd'
+import {Form, Input, Button, Radio} from 'antd'
 
 class UserEditor extends React.Component{
     constructor(props){
@@ -48,14 +48,17 @@ class UserEditor extends React.Component{
                         name='gender'
                         rules={[{required: true, message: '请输入性别'}]}
                     >
-                        <Select
-                            defaultValue={gender || null}
-                            placeholder='请输入性别'
-                            allowClear
+                        <Radio.Group
+                            value = {gender || 'male'}
+                            onChange = {e=>{
+                                this.setState({
+                                    gender: e.target.value
+                                })
+                            }}
                         >
-                            <Option value='male'>男</Option>
-                            <Option value='female'>女</Option>
-                        </Select>
+                            <Radio value='male'>男</Radio>
+                            <Radio value='female'>女</Radio>
+                        </Radio.Group>
                     </Form.Item>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button type="primary" htmlType="submit">

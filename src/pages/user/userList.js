@@ -35,7 +35,7 @@ const columns = [
             }
             return(
                 <div>
-                    <Link to='/'>编辑</Link>
+                    <Link to='/edit/'>编辑</Link>
                     <Popconfirm
                         title='确定要删除此用户吗？'
                         onConfirm={this.state.handleDelete}

@@ -9,10 +9,6 @@ class BookEdit extends React.Component {
         }
     }
 
-    componentWillMount(){
-        //从服务器取数据填到book里面
-    }
-
     render () {
         return (
             <BookEditor edit='true' book={this.state.book} />

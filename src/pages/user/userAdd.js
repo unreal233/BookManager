@@ -1,5 +1,5 @@
 import React from 'react'
-import UserEditor from '../../component/bookEditor'
+import UserEditor from '../../component/userEditor'
 
 class UserAdd extends React.Component {
     render () {

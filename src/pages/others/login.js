@@ -9,8 +9,8 @@ class Login extends React.Component{
 
     render(){
         return(
-            <div class='backgoroud'>
-                <header class='header'>BookManager登录</header>
+            <div className='backgoroud'>
+                <header className='header'>BookManager登录</header>
                 <Form
                     className='loginForm'
                     onFinish={this.onSubmit}

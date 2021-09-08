@@ -44,7 +44,7 @@ class TagEditer extends React.Component{
                 {value.map((tag, index)=>{
                     return(
                         <Tag closable onClose={()=>this.handleDelete(index)}>
-                            {tag}
+                            {tag}1
                         </Tag>
                     )
                 })}

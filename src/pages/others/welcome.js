@@ -3,9 +3,9 @@ import React from 'react'
 class welcome extends React.Component{
     render(){
         return(
-            <div class='backgoroud'>
-                <header class='header'>BookManager</header>
-                <main class='info'>欢迎使用BookManager系统</main>
+            <div className='backgoroud'>
+                <header className='header'>BookManager</header>
+                <main className='info'>欢迎使用BookManager系统</main>
             </div>
         )
     }
