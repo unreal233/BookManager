@@ -11,6 +11,8 @@ class MainLayout extends React.Component {
     handleLogout(){
         //向服务器通知登出
         //页面跳转到Login
+        sessionStorage.removeItem('access_token')
+        this.props.history.push('/login')
     }
 
     render () {

@@ -1,19 +1,32 @@
 import React from 'react'
 import {Form, Input, Button} from 'antd'
+import { post } from '../../utils/request'
+import {withRouter} from 'react-router-dom'
 
 class Login extends React.Component{
-    onSubmit(){
-        //联络服务器登录，根据返回判断是否成功，成功跳转回主页
-        //改进：进入系统自动跳转login界面，登录后不能再进入该界面，登出返回
+    onSubmit(_this){
+        post('http://localhost:3000/login', {
+            account: 'admin',
+            password: '123456'
+        }, this)
+        .then(res=>{
+            if(res){
+                _this.props.history.push('/welcome')
+            }
+            else{
+                alert('用户名或密码错误')
+            }
+        })
     }
 
     render(){
+        const _this = this
         return(
             <div className='backgoroud'>
                 <header className='header'>BookManager登录</header>
                 <Form
                     className='loginForm'
-                    onFinish={this.onSubmit}
+                    onFinish={this.onSubmit(_this)}
                 >
                     <Form.Item
                         label='用户名'
@@ -40,4 +53,4 @@ class Login extends React.Component{
     }
 } 
 
-export default Login
+export default withRouter(Login)
