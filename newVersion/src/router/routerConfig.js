@@ -16,11 +16,11 @@ var routes = [
   {path: "/login", component: Login, auth: false},
   {path: "/welcome", component: Welcome, auth: true},
   {path: "/rendBook", component: RendBook, auth: true},
-  {path: "/book/Add", component: BookAdd, auth: true},
-  {path: "/book/List", component: BookList, auth: true},
-  {path: "/book/Edit/", component: BookEdit, auth: true},
-  {path: "/user/Add", component: UserAdd, auth: true},
-  {path: "/user/List", component: UserList, auth: true},
-  {path: "/user/Edit/", component: UserEdit, auth: true}
+  {path: "/book/add", component: BookAdd, auth: true},
+  {path: "/book/list", component: BookList, auth: true},
+  {path: "/book/edit", component: BookEdit, auth: true},
+  {path: "/user/add", component: UserAdd, auth: true},
+  {path: "/user/list", component: UserList, auth: true},
+  {path: "/user/edit", component: UserEdit, auth: true}
 ]
 export default routes ;

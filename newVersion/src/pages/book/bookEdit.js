@@ -1,5 +1,6 @@
 import React from 'react';
 import BookEditor from '../../component/bookEditor'
+import { get } from '../../utils/request'
 
 class BookEdit extends React.Component {
     constructor(props){
@@ -7,6 +8,10 @@ class BookEdit extends React.Component {
         this.state = {
             book: null
         }
+    }
+
+    componentWillMount(){
+        get('http://localhost:3000/book/'+this.props.id, this)
     }
 
     render () {

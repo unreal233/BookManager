@@ -1,5 +1,4 @@
 export default function request (method, url, body, _this) {
-    console.log(_this);
     method = method.toUpperCase();
     if (method === 'GET'){
         body = undefined;
@@ -13,7 +12,7 @@ export default function request (method, url, body, _this) {
         headers : {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Access-Token': sessionStorage.getItem('access_token') || ''
+            'Access-Token': sessionStorage.getItem('access-token') || ''
         },
         body
     })

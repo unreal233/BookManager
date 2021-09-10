@@ -31,15 +31,15 @@ class MainLayout extends React.Component {
                             mode='inline'
                         >
                             <SubMenu icon={<UserOutlined />} title='用户操作'>
-                                <Menu.Item><Link to="/user/add">添加用户</Link></Menu.Item>
-                                <Menu.Item><Link to="/user/list">用户列表</Link></Menu.Item>
+                                <Menu.Item key='1'><Link to="/user/add">添加用户</Link></Menu.Item>
+                                <Menu.Item key='2'><Link to="/user/list">用户列表</Link></Menu.Item>
                             </SubMenu>
                             <SubMenu icon={<ReadOutlined />} title='书籍操作'>
-                                <Menu.Item><Link to="/book/add">添加书籍</Link></Menu.Item>
-                                <Menu.Item><Link to="/book/list">书籍列表</Link></Menu.Item>
+                                <Menu.Item key='3'><Link to="/book/add">添加书籍</Link></Menu.Item>
+                                <Menu.Item key='4'><Link to="/book/list">书籍列表</Link></Menu.Item>
                             </SubMenu>
                             <SubMenu icon={<InfoCircleOutlined />} title='其他操作'>
-                                <Menu.Item><Link to="/welcome">回到首页</Link></Menu.Item>
+                                <Menu.Item key='5'><Link to="/welcome">回到首页</Link></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>

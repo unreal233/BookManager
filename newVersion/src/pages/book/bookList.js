@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tag, Table, Popconfirm} from 'antd'
 import {Link} from 'react-router-dom'
-import { del } from '../../utils/request';
+import { del, get } from '../../utils/request';
 
 const columns = [
     {
@@ -39,17 +39,17 @@ const columns = [
     {
         title: '操作',
         key: 'action',
-        render:()=>{
+        render:(text, record)=>{
             function handleDelete(){
                 //通知服务器焚书
-                del()
+                del('http://localhost:3000/book/'+record.id, this)
             }
             return(
                 <>
-                    <Link to='/edit/'>编辑</Link>
+                    <Link to={'/edit/'+record.id}>编辑</Link>
                     <Popconfirm
                         title='确定要删除此条目吗？'
-                        onConfirm={this.state.handleDelete}
+                        onConfirm={handleDelete}
                         okText='是'
                         cancelText='否'>
                          {/* eslint-disable-next-line no-script-url*/}
@@ -70,7 +70,12 @@ class BookList extends React.Component{
     }
 
     componentWillMount(){
-        //取得bookList
+        get('http://localhost:3000/book', this)
+        .then(res=>{
+            this.setState({
+                bookList: res
+            })
+        })
     }
 
     handleDelete(){

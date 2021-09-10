@@ -11,17 +11,18 @@ class PrivateRouter extends React.Component{
         const token = sessionStorage.getItem('access-token') || null
         const targetRouterConfig = routerConfig.find(
             (item) => {
-                return item.path.indexOf(pathname) !== -1
+                return item.path === pathname
             }
-          );
+        );
         let isLogin = false
         if(token){
-            if (!(Date.now() - token > expireTime)){
+            if (Date.now() - token < expireTime){
                 isLogin = true
             }
         }
-        if(targetRouterConfig){
-            isLogin = true
+        console.log(targetRouterConfig)
+        if(targetRouterConfig && targetRouterConfig.path === '/login'){
+            return(<Route exact path='/login' component={targetRouterConfig.component}/>)
         }
         if(isLogin){
             if(targetRouterConfig){

@@ -7,12 +7,12 @@ module.exports = function (req, res, next) {
   let unauthorized = true;
   const token = req.headers['access-token'];
   if (token) {
-    if (!(now - token > expireTime)) {
+    if (now - token < expireTime) {
       unauthorized = false;
       res.header('access-token', now);
     }
   }
-
+  
   if (unauthorized) {
     res.sendStatus(401);
   } else {
