@@ -1,7 +1,7 @@
 import React from 'react'
 import {Table, Popconfirm} from 'antd'
-import { Link } from 'react-router-dom'
-import { del } from '../../utils/request'
+import { Link, Redirect } from 'react-router-dom'
+import { del, get, post } from '../../utils/request'
 
 const columns = [
     {
@@ -27,21 +27,25 @@ const columns = [
     {
         title: '操作',
         key: 'action',
-        render:()=>{
+        render: (text, record)=>{
             function handleDelete(){
                 //通知服务器杀人
-                //特别注意，要把书籍列表里的onwerId删掉
-                del()
+                del(`http://localhost:3000/user/${record.id}`, this)
+                .then(()=>{
+                    return(
+                        <Redirect to='/user/list'/>
+                    )
+                })
             }
             return(
                 <div>
-                    <Link to='/edit/'>编辑</Link>
+                    <Link to={`/user/edit/${record.id}`}>编辑</Link>
                     <Popconfirm
                         title='确定要删除此用户吗？'
-                        onConfirm={this.state.handleDelete}
+                        onConfirm={handleDelete}
                         okText='是'
                         cancelText='否'>
-                         <a href='javascript:void(0)' onClick={()=>this.handleDelete()}>删除</a>
+                         <a href='javascript:void(0)' onClick={()=>handleDelete()}>删除</a>
                     </Popconfirm>
                 </div>
             )
@@ -58,29 +62,60 @@ class UserList extends React.Component{
     }
 
     componentWillMount(){
-        //取得userList
+        get('http://localhost:3000/user', this)
+        .then(res=>{
+            this.setState({
+                userList: res
+            })
+        })
     }
 
-    handleDelete(){
-        //通知服务器杀人
-        //特别注意，要把书籍列表里的onwerId删掉
-    }
     render(){
+        const expandedRowRender = (record) => {
+            const columns = [
+                { title: '持有书籍id', dataIndex: 'id', key: 'id'},
+                { title: '操作', key: 'action',
+                    render: (text, _record, index)=>{
+                        function handleDelete(){
+                            const newlist = record.booklist.splice(index, 1)
+                            post(`http://localhost:3000/user/${record.id}`, {
+                                    ...record,
+                                    booklist: newlist
+                                }, this)
+                            .then(()=>{
+                                return(
+                                    <Redirect to='/user/list'/>
+                                )
+                            })
+                        }
+                        return(
+                            <div>
+                                <Popconfirm
+                                    title='确定要删除该借阅记录吗？'
+                                    onConfirm={handleDelete}
+                                    okText='是'
+                                    cancelText='否'>
+                                    <a href='javascript:void(0)' onClick={()=>handleDelete()}>删除</a>
+                                </Popconfirm>
+                            </div>
+                        )
+                    }
+                }
+            ];
+            const data = []
+            for(let i of record.booklist){
+                data.push({'id': i})
+            }
+            console.log('ready!')
+            return <Table columns={columns} dataSource={data} pagination={false} />;
+        }
         return(
             <>
                 <header>用户列表</header>
                 <Table
                     columns={columns}
-                    expandable={{
-                        expandedRowRender: userInfo=>{
-                            userInfo.bookList.map((bookId)=>{
-                                return(
-                                    <div>{bookId}</div>
-                                )
-                            })
-                        }
-                    }}
                     dataSource={this.state.userList}
+                    expandable={{expandedRowRender: record=>expandedRowRender(record)}}
                 />
             </>
         )

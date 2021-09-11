@@ -22,7 +22,6 @@ export default function request (method, url, body, _this) {
             return Promise.reject('Unauthorized');
         }
         else{
-            console.log("success" + method);
             const token = res.headers.get('access-token');
             if(token){
                 sessionStorage.setItem('access-token', token);

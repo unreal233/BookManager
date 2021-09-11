@@ -43,8 +43,8 @@ class TagEditer extends React.Component{
             <div>
                 {value.map((tag, index)=>{
                     return(
-                        <Tag closable onClose={()=>this.handleDelete(index)}>
-                            {tag}1
+                        <Tag key={tag} closable onClose={()=>this.handleDelete(index)}>
+                            {tag}
                         </Tag>
                     )
                 })}
@@ -66,6 +66,7 @@ class TagEditer extends React.Component{
                             <Tag
                             onClick={this.showInput}
                             className='newTagHidden'
+                            key='1'
                             >Tag+</Tag>
                         )
                     }

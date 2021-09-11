@@ -17,7 +17,7 @@ class BookEditor extends React.Component {
     }
 
     onSubmit(value){
-        //提交数据
+        console.log(value)
         let url = 'http://localhost:3000/book'
         put(url, {
             body: value

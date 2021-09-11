@@ -11,7 +11,9 @@ class PrivateRouter extends React.Component{
         const token = sessionStorage.getItem('access-token') || null
         const targetRouterConfig = routerConfig.find(
             (item) => {
-                return item.path === pathname
+                //用正则截掉id内容
+                const pathEdit = pathname.match(/^\/[a-z]*(\/[a-z]*)?/)[0]
+                return item.path === pathEdit
             }
         );
         let isLogin = false
@@ -20,7 +22,6 @@ class PrivateRouter extends React.Component{
                 isLogin = true
             }
         }
-        console.log(targetRouterConfig)
         if(targetRouterConfig && targetRouterConfig.path === '/login'){
             return(<Route exact path='/login' component={targetRouterConfig.component}/>)
         }

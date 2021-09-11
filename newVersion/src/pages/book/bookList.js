@@ -1,6 +1,6 @@
 import React from 'react';
 import {Tag, Table, Popconfirm} from 'antd'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import { del, get } from '../../utils/request';
 
 const columns = [
@@ -23,37 +23,38 @@ const columns = [
         title: '标签',
         dataIndex: 'tag',
         key: 'tag',
-        render: tags=>{
-            tags.map((tag)=>{
-                return(<Tag>
-                    {tag}
-                </Tag>)
-            })
-        }
-    },
-    {
-        title: '持有者id',
-        dataIndex: 'onwerId',
-        key: 'onwerId'
+        render: tags=>(
+            <>
+                {tags.map((tag)=>{
+                    return(<Tag key={tag}>
+                        {tag}
+                    </Tag>)
+                })}
+            </>
+        )
     },
     {
         title: '操作',
         key: 'action',
-        render:(text, record)=>{
+        render: (text, record)=>{
             function handleDelete(){
                 //通知服务器焚书
-                del('http://localhost:3000/book/'+record.id, this)
+                del(`http://localhost:3000/book/${record.id}`, this)
+                .then(()=>{
+                    return(
+                        <Redirect to='/book/list'/>
+                    )
+                })
             }
             return(
                 <>
-                    <Link to={'/edit/'+record.id}>编辑</Link>
+                    <Link to={`/book/edit/${record.id}`}>编辑</Link>
                     <Popconfirm
                         title='确定要删除此条目吗？'
                         onConfirm={handleDelete}
                         okText='是'
                         cancelText='否'>
-                         {/* eslint-disable-next-line no-script-url*/}
-                         <a href='javascript:void(0)' onClick={()=>this.handleDelete()}>删除</a>
+                         <a href='javascript:void(0)' onClick={()=>handleDelete()}>删除</a>
                     </Popconfirm>
                 </>
             )
@@ -76,11 +77,6 @@ class BookList extends React.Component{
                 bookList: res
             })
         })
-    }
-
-    handleDelete(){
-        //通知服务器把这本书撕了
-        //特别注意，要把用户列表里的本书删掉
     }
 
     render(){
