@@ -29,14 +29,14 @@ class Login extends React.Component{
                         name='account'
                         rules={[{required: true, message: '请输入用户名'}]}
                     >
-                        <Input placeholder='请输入密码'/>
+                        <Input placeholder='请输入用户名'/>
                     </Form.Item>
                     <Form.Item
                         label='密码'
                         name='password'
-                        rules={[{required: true, message: '请输入用户名'}]}
+                        rules={[{required: true, message: '请输入密码'}]}
                     >
-                        <Input.Password placeholder='请输入用户名'/>
+                        <Input.Password placeholder='请输入密码'/>
                     </Form.Item>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button type="primary" htmlType="submit">

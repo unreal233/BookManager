@@ -106,7 +106,6 @@ class UserList extends React.Component{
             for(let i of record.booklist){
                 data.push({'id': i})
             }
-            console.log('ready!')
             return <Table columns={columns} dataSource={data} pagination={false} />;
         }
         return(
@@ -115,7 +114,11 @@ class UserList extends React.Component{
                 <Table
                     columns={columns}
                     dataSource={this.state.userList}
-                    expandable={{expandedRowRender: record=>expandedRowRender(record)}}
+                    expandable={{
+                        expandedRowRender: record=>expandedRowRender(record),
+                        expandRowByClick: true,
+                        rowExpandable: record=>record.booklist.length
+                    }}
                 />
             </>
         )

@@ -25,7 +25,12 @@ class MainLayout extends React.Component {
                     </div>
                 </Header>
                 <Layout>
-                    <Sider>
+                    <Sider
+                        style={{
+                            overflow: 'auto',
+                            position: 'fixed',
+                            minHeight: '100vh'
+                        }}>
                         <Menu
                             className='menu'
                             mode='inline'
@@ -43,7 +48,12 @@ class MainLayout extends React.Component {
                             </SubMenu>
                         </Menu>
                     </Sider>
-                    <Content className='content'>
+                    <Content
+                        className='content'
+                        style={{
+                            marginLeft: 200
+                        }}        
+                    >
                         {this.props.children}
                     </Content>
                 </Layout>

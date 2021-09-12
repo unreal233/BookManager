@@ -1,7 +1,7 @@
 import React from 'react'
 import {Form, Input, Button} from 'antd'
 import TagEditer from './tagEdit'
-import { put } from '../utils/request'
+import { post, put } from '../utils/request'
 
 class BookEditor extends React.Component {
     constructor(props){
@@ -12,16 +12,27 @@ class BookEditor extends React.Component {
             tag: [],
         }
         this.state = {
-            book: props.book || newBook
+            book: newBook
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            book: nextProps.book
+        })
+    }
+
     onSubmit(value){
-        console.log(value)
         let url = 'http://localhost:3000/book'
-        put(url, {
-            body: value
-        }, this)
+        let method = post
+        if(this.props.edit){
+            url+='/'+this.props.book.id
+            method = put
+        }
+        method(url, value, this)
+        .then(()=>{
+            alert('添加成功')
+        })
     }
 
     render () {
@@ -31,7 +42,7 @@ class BookEditor extends React.Component {
                 <header>{this.props.edit ? `修改书籍(${id})` : '添加书籍'}</header>
                 <Form
                     className='inputForm'
-                    onFinish={this.onSubmit}
+                    onFinish={this.onSubmit.bind(this)}
                 >
                     <Form.Item
                         label='书籍名称'
