@@ -35,3 +35,4 @@ export const get = (url, _this) => request('GET', url, null, _this);
 export const post = (url, body, _this) => request('POST', url, body, _this);
 export const put = (url, body, _this) => request('PUT', url, body, _this);
 export const del = (url, body, _this) => request('DELETE', url, body, _this);
+export const patch = (url, body, _this) => request('PATCH', url, body, _this);

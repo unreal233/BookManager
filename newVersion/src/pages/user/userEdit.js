@@ -12,9 +12,7 @@ class UserEdit extends React.Component {
     }
 
     componentWillMount(){
-        let id = this.props.match.url.replace('/user/edit/', '')
-        console.log(id)
-        console.log(this.props)
+        const id = this.props.match.url.replace('/user/edit/', '')
         get('http://localhost:3000/user/'+id, this)
         .then(res=>{
             this.setState({

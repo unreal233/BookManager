@@ -2,7 +2,7 @@
   "user": [
     {
       "name": "张三",
-      "age": "25",
+      "age": 23,
       "gender": "male",
       "booklist": [
         "00001",
@@ -34,13 +34,6 @@
       "age": "33",
       "gender": "male",
       "booklist": []
-    },
-    {
-      "username": "大头儿子",
-      "age": "5",
-      "gender": "male",
-      "booklist": [],
-      "id": 1005
     }
   ],
   "book": [

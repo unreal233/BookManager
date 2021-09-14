@@ -16,9 +16,17 @@ class BookEditor extends React.Component {
         }
     }
 
+    formRef = React.createRef()
+
     componentWillReceiveProps(nextProps){
+        const {name, price, tag} = nextProps.book
         this.setState({
             book: nextProps.book
+        })
+        this.formRef.current.setFieldsValue({
+            name: name,
+            price: price,
+            tag: tag,
         })
     }
 
@@ -26,12 +34,16 @@ class BookEditor extends React.Component {
         let url = 'http://localhost:3000/book'
         let method = post
         if(this.props.edit){
-            url+='/'+this.props.book.id
+            url+=`/${this.props.book.id}`
             method = put
         }
-        method(url, value, this)
+        let newValue ={ //tag系统待实现，先暂时空置一下
+            ...value,
+            tag: []
+        }
+        method(url, newValue, this)
         .then(()=>{
-            alert('添加成功')
+            alert('添加成功!(可以在书籍列表中查看修改)')
         })
     }
 
@@ -43,21 +55,22 @@ class BookEditor extends React.Component {
                 <Form
                     className='inputForm'
                     onFinish={this.onSubmit.bind(this)}
+                    ref={this.formRef}
                 >
                     <Form.Item
                         label='书籍名称'
-                        name='bookname'
+                        name='name'
                         rules={[{required: true, message: '请输入书籍名'},
                                 {max: 20, message: '书籍名不得超过20个字符'}]}
                     >
-                        <Input value={name} />
+                        <Input defaultValue={name} />
                     </Form.Item>
                     <Form.Item
                         label='价格'
                         name='price'
                         rules={[{required: true, message: '请输入数字'}]}
                     >
-                        <Input value={price} />
+                        <Input defaultValue={price} />
                     </Form.Item>
                     <Form.Item
                         label='标签'

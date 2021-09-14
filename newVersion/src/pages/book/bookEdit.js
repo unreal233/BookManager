@@ -11,7 +11,7 @@ class BookEdit extends React.Component {
     }
 
     componentWillMount(){
-        const id = this.props.match.params.id;
+        const id = this.props.match.url.replace('/book/edit/', '')
         get('http://localhost:3000/book/'+id, this)
         .then(res=>{
             this.setState({

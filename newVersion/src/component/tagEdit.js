@@ -6,26 +6,22 @@ class TagEditer extends React.Component{
         super(props);
         this.state={
             value: this.props.initTag || [],
-            inputVisible: false,
-            inputValue: ''
+            inputVisible: false
         }
+        this.value=this.state.value
+        this.onChange=this.onChangeTag
     }
 
     handleDelete(index){
         this.setState({
             value: this.state.value.splice(index, 1)
         })
+        this.onChangeTag()
     }
 
     showInput(){
         this.setState({
             inputVisible: true
-        })
-    }
-
-    handleChangeInput(e){
-        this.setState({
-            inputValue: e.target.value
         })
     }
 
@@ -35,10 +31,47 @@ class TagEditer extends React.Component{
             inputValue: '',
             inputVisible : false
         })
+        this.onChangeTag()
+    }
+
+    onChangeTag(){
+        console.log(this.state)
+        this.value = this.state.value
+    }
+
+    newTagShow(value){//展示‘加入新tag’的按钮
+        const {inputVisible} = this.state;
+        if(value.length < 2){
+        if(inputVisible){
+            return(
+                <Input
+                    type='text'
+                    className='newTagShow'
+                    onBlur={()=>this.handleSubmitInput.bind(this)(value)}
+                    onPressEnter={()=>this.handleSubmitInput.bind(this)(value)}
+                />
+            )
+        }
+        else{
+            return(
+                <Tag
+                    onClick={this.showInput.bind(this)}
+                    className='newTagHidden'
+                    key='1'
+                >Tag+</Tag>
+            )
+        }}
+    }
+    
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            value: nextProps.initTag
+        })
     }
 
     render(){
-        const {value, inputVisible, inputValue} = this.state;
+        const value = this.state.value
+        console.log(value)
         return(
             <div>
                 {value.map((tag, index)=>{
@@ -48,29 +81,7 @@ class TagEditer extends React.Component{
                         </Tag>
                     )
                 })}
-                {()=>{if(value.length < 3){
-                    if(inputVisible){
-                        return(
-                            <Input
-                            type='text'
-                            className='newTagShow'
-                            value={inputValue}
-                            onChange={()=>this.handleChangeInput}
-                            onBlur={()=>this.handleSubmitInput(value)}
-                            onPressEnter={()=>this.handleSubmitInput(value)}
-                            />
-                        )
-                    }
-                    else{
-                        return(
-                            <Tag
-                            onClick={this.showInput}
-                            className='newTagHidden'
-                            key='1'
-                            >Tag+</Tag>
-                        )
-                    }
-                }}}
+                {this.newTagShow(value)}
             </div>
         )
     }

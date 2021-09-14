@@ -2,7 +2,6 @@ import React from 'react'
 
 const Login = React.lazy(()=>import('../pages/others/login'))
 const Welcome = React.lazy(()=>import('../pages/others/welcome'))
-const RendBook = React.lazy(()=>import('../pages/others/rendBook'))
 
 const BookAdd = React.lazy(()=>import('../pages/book/bookAdd'))
 const BookList = React.lazy(()=>import('../pages/book/bookList'))
@@ -15,7 +14,6 @@ const UserEdit = React.lazy(()=>import('../pages/user/userEdit'))
 var routes = [
   {path: "/login", component: Login, auth: false},
   {path: "/welcome", component: Welcome, auth: true},
-  {path: "/rendBook", component: RendBook, auth: true},
   {path: "/book/add", component: BookAdd, auth: true},
   {path: "/book/list", component: BookList, auth: true},
   {path: "/book/edit", component: BookEdit, auth: true},

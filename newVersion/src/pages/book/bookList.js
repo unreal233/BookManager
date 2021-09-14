@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tag, Table, Popconfirm} from 'antd'
 import {Link, Redirect} from 'react-router-dom'
-import { del, get } from '../../utils/request';
+import {del, get} from '../../utils/request';
 
 const columns = [
     {
@@ -23,15 +23,17 @@ const columns = [
         title: '标签',
         dataIndex: 'tag',
         key: 'tag',
-        render: tags=>(
-            <>
-                {tags.map((tag)=>{
-                    return(<Tag key={tag}>
-                        {tag}
-                    </Tag>)
-                })}
-            </>
-        )
+        render: tag=>{
+            if(tag){
+                <>
+                    {tag.map((tag)=>{
+                        return(<Tag key={tag}>
+                            {tag}
+                        </Tag>)
+                    })}
+                </>
+            }
+        }
     },
     {
         title: '操作',
